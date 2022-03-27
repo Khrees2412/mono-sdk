@@ -12,7 +12,7 @@ import (
 	"github.com/khrees2412/mono-sdk/utils"
 )
 
-var baseEndpoint = "https://api.withmono.com"
+var baseEndpoint = "https://api.withmono.com/"
 
 func (c *Client) GetAccountId(code string) (interface{}, interface{}) {
 	postBody, _ := json.Marshal(map[string]string{
@@ -33,20 +33,16 @@ func (c *Client) GetAccountId(code string) (interface{}, interface{}) {
 
 	respBody, _ := ioutil.ReadAll(resp.Body)
 
-	fmt.Println(resp)
-	fmt.Println(string(respBody))
 	mono_id := utils.PrettyPrint(respBody)
-
-	return nil, mono_id
-
+	return mono_id, nil
 }
 
-// This method fetches the user whose ID is passed
-func (c *Client) FetchUserDetails(userID string) (interface{}, interface{}) {
+// This resource represents the account details with the financial institution.
+func (c *Client) GetAccountDetails(userID string) (interface{}, interface{}) {
 	details := new(models.Details)
 
 	r, err := http.NewRequest(http.MethodGet,
-		fmt.Sprintf("%s/account/%s", baseEndpoint, userID), nil)
+		fmt.Sprintf("%s/accounts/%s", baseEndpoint, userID), nil)
 	if err != nil {
 		return details, err.Error()
 	}
