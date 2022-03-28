@@ -67,3 +67,25 @@ type Income struct {
 	Yearly_income  int
 	Income_sources int
 }
+
+type Transaction struct {
+}
+
+type StatementJSON struct {
+	Meta struct {
+		count int
+	}
+	Data []struct {
+		Id        string
+		Amount    string
+		Date      string
+		Narration string
+		Type      string
+		Category  string
+	}
+}
+type StatementPDF struct {
+	Id     string
+	Status string
+	Path   string
+}

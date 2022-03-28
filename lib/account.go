@@ -3,7 +3,6 @@ package lib
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -12,7 +11,7 @@ import (
 	"github.com/khrees2412/mono-sdk/utils"
 )
 
-var baseEndpoint = "https://api.withmono.com/"
+var baseEndpoint = "https://api.withmono.com"
 
 func (c *Client) GetAccountId(code string) (interface{}, interface{}) {
 	postBody, _ := json.Marshal(map[string]string{
@@ -39,12 +38,12 @@ func (c *Client) GetAccountId(code string) (interface{}, interface{}) {
 
 // This resource represents the account details with the financial institution.
 func (c *Client) GetAccountDetails(userID string) (interface{}, interface{}) {
-	details := new(models.Details)
+	d := new(models.Details)
 
 	r, err := http.NewRequest(http.MethodGet,
 		fmt.Sprintf("%s/accounts/%s", baseEndpoint, userID), nil)
 	if err != nil {
-		return details, err.Error()
+		return d, err.Error()
 	}
 
 	resp, err := c.c.Do(r)
@@ -53,19 +52,24 @@ func (c *Client) GetAccountDetails(userID string) (interface{}, interface{}) {
 	}
 
 	defer resp.Body.Close()
+	respBody, _ := ioutil.ReadAll(resp.Body)
 
-	if resp.StatusCode > http.StatusCreated {
+	details := utils.PrettyPrint(respBody)
+	return details, nil
 
-		var s struct {
-			Message string `json:"message"`
-		}
-
-		if err := json.NewDecoder(resp.Body).Decode(&s); err != nil {
-			return nil, err
-		}
-
-		return details, errors.New(s.Message)
-	}
-
-	return details, json.NewDecoder(resp.Body).Decode(details)
 }
+
+// if resp.StatusCode > http.StatusCreated {
+
+// 		var s struct {
+// 			Message string `json:"message"`
+// 		}
+
+// 		if err := json.NewDecoder(resp.Body).Decode(&s); err != nil {
+// 			return nil, err
+// 		}
+
+// 		return details, errors.New(s.Message)
+// 	}
+
+// 	return details, json.NewDecoder(resp.Body).Decode(details)
