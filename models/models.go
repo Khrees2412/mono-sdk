@@ -69,6 +69,20 @@ type Income struct {
 }
 
 type Transaction struct {
+	Paging struct {
+		Total    int
+		Page     int
+		Previous string
+		Next     string
+	}
+	Data []struct {
+		Id        string
+		Amount    int
+		Date      string
+		Narration string
+		Type      string
+		Category  string
+	}
 }
 
 type StatementJSON struct {
