@@ -1,12 +1,11 @@
-package lib
+package mono
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
+	
 
 	"github.com/khrees2412/mono-sdk/models"
-	"github.com/khrees2412/mono-sdk/utils"
 )
 
 type Query struct {
@@ -18,14 +17,11 @@ type Query struct {
 	Paginate  string
 }
 
-func (c *Client) GetTransactions(userID string, query *Query) (interface{}, interface{}) {
-	t := new(models.Transaction)
-
+/* This resource represents the known transactions on the account. */
+func (c *ConnectService) GetTransactions(userID string, query *Query) (interface{}, interface{}) {
 	r, err := http.NewRequest(http.MethodGet,
 		fmt.Sprintf("%s/accounts/%s/transactions", baseEndpoint, userID), nil)
-	if err != nil {
-		return t, err.Error()
-	}
+	
 	q := r.URL.Query() // Get a copy of the query values.
 
 	if query.Start != "" {
@@ -46,14 +42,8 @@ func (c *Client) GetTransactions(userID string, query *Query) (interface{}, inte
 	if query.Limit != "" {
 		q.Add("limit", query.Limit)
 	}
-	resp, err := c.c.Do(r)
-	if err != nil {
-		return nil, err.Error()
-	}
-
-	defer resp.Body.Close()
-	respBody, _ := ioutil.ReadAll(resp.Body)
-
-	transactions := utils.PrettyPrint(respBody)
-	return transactions, nil
+	u := fmt.Sprintf("/accounts/%s/transactions?start=%s&end=%s",userID)
+	resp := &models.Transaction{}
+	err = c.client.Call("GET", u, nil, &resp)
+	return resp, err
 }
