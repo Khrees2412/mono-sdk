@@ -103,3 +103,16 @@ type StatementPDF struct {
 	Status string
 	Path   string
 }
+
+type Unlink struct {
+	Message string
+	Data    struct {
+		AccountNumber string
+		Institution   struct {
+			Id       string
+			Name     string
+			BankCode string
+			Icon     string
+		}
+	}
+}

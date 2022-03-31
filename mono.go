@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/khrees2412/mono-sdk/utils"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -128,6 +129,9 @@ func mapstruct(data interface{}, v interface{}) error {
 	return err
 }
 
+// Response represents arbitrary response data
+type Response map[string]interface{}
+
 // decodeResponse decodes the JSON response from the Mono API.
 // The actual response will be written to the `v` parameter
 func (c *Client) decodeResponse(httpResp *http.Response, v interface{}) error {
@@ -138,7 +142,7 @@ func (c *Client) decodeResponse(httpResp *http.Response, v interface{}) error {
 		return err
 	}
 	if status, _ := resp["status"].(bool); !status || httpResp.StatusCode >= 400 {
-		return newAPIError(httpResp)
+		return utils.NewAPIError(httpResp)
 	}
 
 	if data, ok := resp["data"]; ok {
@@ -152,4 +156,14 @@ func (c *Client) decodeResponse(httpResp *http.Response, v interface{}) error {
 	}
 	// if response data does not contain data key, map entire response to v
 	return mapstruct(resp, v)
+}
+
+/* This resource returns all the financial accounts that are linked to the BVN specified within Mono's Ecosystem. */
+func (c *Client) View360(bvn string) (interface{}, interface{}) {
+	u := "/360view"
+	resp := &Response{}
+	var body map[string]string
+	body["bvn"] = bvn
+	err := c.Call("POST", u, body, &resp)
+	return resp, err
 }
