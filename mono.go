@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/khrees2412/mono-sdk/models"
 	"github.com/khrees2412/mono-sdk/utils"
 	"github.com/mitchellh/mapstructure"
 )
@@ -158,12 +159,14 @@ func (c *Client) decodeResponse(httpResp *http.Response, v interface{}) error {
 	return mapstruct(resp, v)
 }
 
+type BVN struct {
+	Bvn string
+}
+
 /* This resource returns all the financial accounts that are linked to the BVN specified within Mono's Ecosystem. */
-func (c *Client) View360(bvn string) (interface{}, interface{}) {
+func (c *Client) View360(bvn *BVN) (interface{}, interface{}) {
 	u := "/360view"
-	resp := &Response{}
-	var body map[string]string
-	body["bvn"] = bvn
-	err := c.Call("POST", u, body, &resp)
+	resp := &models.View360{}
+	err := c.Call("POST", u, bvn, &resp)
 	return resp, err
 }

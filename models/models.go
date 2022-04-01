@@ -104,9 +104,9 @@ type StatementPDF struct {
 	Path   string
 }
 
-type Unlink struct {
+type View360 struct {
 	Message string
-	Data    struct {
+	Data    []struct {
 		AccountNumber string
 		Institution   struct {
 			Id       string
@@ -114,5 +114,86 @@ type Unlink struct {
 			BankCode string
 			Icon     string
 		}
+	}
+}
+type Sync struct {
+	Status     string
+	Code       string
+	HasNewData bool
+}
+
+type Reauth struct {
+	Token string
+}
+
+type MakePayment struct {
+	Id           string
+	Type         string
+	Amount       int
+	Description  string
+	Reference    string
+	Payment_link string
+	Created_at   string
+	Updated_at   string
+}
+
+type VerifyPayment struct {
+	Type string
+	Data struct {
+		_Id         string
+		Id          string
+		Status      string
+		Amount      int
+		Description string
+		Fee         int
+		Currency    string
+		Account     string
+		Customer    string
+		Reference   string
+		Created_at  string
+		Updated_at  string
+	}
+}
+
+type GetPayment struct {
+	Payments []struct {
+		_Id         string
+		Id          string
+		Status      string
+		Amount      int
+		Description string
+		Currency    string
+		Account     struct {
+			_Id         string
+			Institution struct {
+				Id   string
+				Name string
+				Type string
+				// PERSONAL_BANKING or BUSINESS_BANKING
+			}
+			Name          string
+			Currency      string
+			AccountNumber string
+			Created_at    string
+			Updated_at    string
+		}
+		Customer   string
+		Reference  string
+		Created_at string
+		Updated_at string
+	}
+	Paging struct {
+		Total    int
+		Pages    int
+		Previous string
+		Next     string
+	}
+}
+
+type AccountHolder struct {
+	Status  string
+	Message string
+	Data    struct {
+		Id string
 	}
 }

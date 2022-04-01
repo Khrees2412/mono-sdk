@@ -51,7 +51,7 @@ func (c *ConnectService) GetAccountDetails(userID string) (interface{}, interfac
 /* This enables you to provide your customers with the option to unlink their financial account(s) */
 func (c *ConnectService) Unlink(userID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/unlink", userID)
-	resp := &models.Unlink{}
+	resp := Response{}
 	err := c.client.Call("POST", u, nil, &resp)
 	return resp, err
 }
