@@ -197,3 +197,8 @@ type AccountHolder struct {
 		Id string
 	}
 }
+
+type Budget struct {
+	Status  string
+	Message string
+}
