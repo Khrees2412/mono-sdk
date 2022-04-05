@@ -3,7 +3,6 @@ package mono
 import (
 	"fmt"
 	"net/http"
-	
 
 	"github.com/khrees2412/mono-sdk/models"
 )
@@ -21,7 +20,7 @@ type Query struct {
 func (c *ConnectService) GetTransactions(userID string, query *Query) (interface{}, interface{}) {
 	r, err := http.NewRequest(http.MethodGet,
 		fmt.Sprintf("%s/accounts/%s/transactions", baseEndpoint, userID), nil)
-	
+
 	q := r.URL.Query() // Get a copy of the query values.
 
 	if query.Start != "" {
@@ -42,7 +41,7 @@ func (c *ConnectService) GetTransactions(userID string, query *Query) (interface
 	if query.Limit != "" {
 		q.Add("limit", query.Limit)
 	}
-	u := fmt.Sprintf("/accounts/%s/transactions?start=%s&end=%s",userID)
+	u := fmt.Sprintf("/accounts/%s/transactions?start=%s&end=%s", userID, query.Start, query.End)
 	resp := &models.Transaction{}
 	err = c.client.Call("GET", u, nil, &resp)
 	return resp, err
