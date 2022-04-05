@@ -250,5 +250,26 @@ type Budget struct {
 	Message string
 }
 
+type Wallet struct {
+	Status  string
+	Message string
+	Data    struct {
+		Link string
+	}
+}
+
+type WalletRes struct {
+	Status  string
+	Message string
+	Data    []struct {
+		Currency  string
+		Balance   int
+		Threshold struct {
+			Value   int
+			Enabled bool
+		}
+	}
+}
+
 type VirtualCard struct {
 }

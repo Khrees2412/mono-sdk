@@ -2,6 +2,7 @@ package mono
 
 import (
 	"fmt"
+	"mime/multipart"
 
 	"github.com/khrees2412/mono-sdk/models"
 )
@@ -96,4 +97,11 @@ func (c *IssuingService) GetAccount(acctID string) (interface{}, interface{}) {
 	err := c.client.Call("GET", u, nil, &resp)
 	return resp, err
 
+}
+
+func (c *IssuingService) UploadFile(file *multipart.FileHeader) (interface{}, interface{}) {
+	u := subpath + "/accountholders/upload"
+	resp := Response{}
+	err := c.client.Call("POST", u, file, &resp)
+	return resp, err
 }
