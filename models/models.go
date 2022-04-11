@@ -113,6 +113,24 @@ type VirtualAccountRes struct {
 		Account_number string
 	}
 }
+
+type VirtualAccountsRes struct {
+	Status  string
+	Message string
+	Data    []struct {
+		Currency       string
+		Balance        int
+		Status         string
+		App            string
+		Business       string
+		Id             string
+		Bank_name      string
+		Bank_code      string
+		Kyc_level      string
+		Account_name   string
+		Account_number string
+	}
+}
 type Account struct {
 	Status  string
 	Message string
@@ -271,5 +289,44 @@ type WalletRes struct {
 	}
 }
 
-type VirtualCard struct {
+type VirtualAccountBalance struct {
+	Status  string
+	Message string
+	Data    struct {
+		Withdrawable_amount int
+		Available_amount    int
+	}
+}
+
+type VirtualAccountKyc struct {
+	Status  string
+	Message string
+	Data    struct {
+		Maximum_credit_amount         string
+		Maximum_transfer_amount       string
+		Maximum_daily_transfer_amount string
+		Maximum_account_balance       string
+	}
+}
+type VirtualAccountUpgrade struct {
+	Status  string
+	Message string
+	Data    struct {
+		Id        string
+		Kyc_level string
+	}
+}
+type MockTxn struct {
+	Status  string
+	Message string
+	Data    struct {
+		Id string
+	}
+}
+type FundTransfer struct {
+	Status  string
+	Message string
+	Data    struct {
+		Id string
+	}
 }

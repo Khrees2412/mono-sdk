@@ -8,10 +8,26 @@ import (
 
 type DirectpayService service
 
-func (c *DirectpayService) MakeDirectPay(userID string) (interface{}, interface{}) {
-	u := fmt.Sprintf("/v1/payments/initiate/%s/", userID)
+type DirectPayBody struct {
+	Amount       string
+	Description  string
+	Type         string
+	Reference    string
+	Start_date   string
+	End_date     string
+	Duration     int32
+	Interval     string
+	Account      string
+	Redirect_url string
+	Meta         struct {
+		Reference string
+	}
+}
+
+func (c *DirectpayService) MakeDirectPay(d *DirectPayBody) (interface{}, interface{}) {
+	u := "/v1/payments/initiate"
 	resp := &models.MakePayment{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, d, &resp)
 	return resp, err
 
 }
