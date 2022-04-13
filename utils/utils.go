@@ -13,7 +13,7 @@ func PrettyPrint(i interface{}) string {
 	return string(s)
 }
 
-// APIError includes the response from the Paystack API and some HTTP request info
+// APIError includes the response from the Mono API and some HTTP request info
 type APIError struct {
 	Message        string        `json:"message,omitempty"`
 	HTTPStatusCode int           `json:"code,omitempty"`
@@ -28,7 +28,7 @@ func (aerr *APIError) Error() string {
 	return string(ret)
 }
 
-// ErrorResponse represents an error response from the Paystack API server
+// ErrorResponse represents an error response from the Mono API server
 type ErrorResponse struct {
 	Status  bool                   `json:"status,omitempty"`
 	Message string                 `json:"message,omitempty"`
