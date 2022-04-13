@@ -330,3 +330,48 @@ type FundTransfer struct {
 		Id string
 	}
 }
+
+type Cac struct {
+	State            string
+	Id               int
+	Address          string
+	ApprovedName     string
+	RcNumber         string
+	BranchAddress    string
+	RegistrationDate string
+	ClassificationId int
+	Email            string
+	Lga              string
+	City             string
+	Status           string
+}
+
+type Shareholders []struct {
+	EntityType string
+	Name       string
+	Role       string
+	Details    struct {
+		Id             int
+		Address        string
+		City           string
+		Residence      string
+		Gender         string
+		Nationality    string
+		Occupation     string
+		Shares         int
+		Status         string
+		Email          string
+		Phone          string
+		Dob            string
+		IdentityType   string
+		IdentityNumber string
+	}
+}
+type VerifyAcct struct {
+	Status  string
+	Message string
+	Data    struct {
+		Account_number string
+		Account_name   string
+	}
+}

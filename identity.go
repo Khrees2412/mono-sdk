@@ -10,6 +10,6 @@ import (
 func (c *ConnectService) GetIdentity(userID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/identity", userID)
 	resp := &models.Identity{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }

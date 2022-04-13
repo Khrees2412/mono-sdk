@@ -15,7 +15,7 @@ type TxnQuery struct {
 func (c *IssuingService) GetAccountTxns(acctID string) (interface{}, interface{}) {
 	u := subpath + fmt.Sprintf("accountholders/%s/transactions", acctID)
 	resp := &models.AccountTxn{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 
 }
@@ -23,14 +23,14 @@ func (c *IssuingService) GetAccountTxns(acctID string) (interface{}, interface{}
 func (c *IssuingService) GetAllTxns(t *TxnQuery) (interface{}, interface{}) {
 	u := subpath + "/transactions"
 	resp := &models.Txns{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }
 
 func (c *IssuingService) GetTxn(txnID string) (interface{}, interface{}) {
 	u := subpath + fmt.Sprintf("/transaction/%s", txnID)
 	resp := &models.Txn{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 
 }

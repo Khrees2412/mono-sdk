@@ -7,7 +7,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 
@@ -26,12 +25,13 @@ type service struct {
 type Client struct {
 	common  service
 	c       *http.Client
-	baseURL *url.URL
+	baseURL string
 	secret  string
 
 	Connect   *ConnectService
 	Directpay *DirectpayService
 	Issuing   *IssuingService
+	Misc      *MiscService
 }
 
 // func WithHTTPClient(cl *http.Client) Option {
@@ -65,12 +65,13 @@ func NewClient(secret string) (*Client, error) {
 		return nil, errors.New("please provide your secret key")
 	}
 	c.secret = secret
-	c.baseURL, _ = url.Parse(baseEndpoint)
+	c.baseURL = baseEndpoint
 
 	c.common.client = c
 	c.Connect = (*ConnectService)(&c.common)
 	c.Directpay = (*DirectpayService)(&c.common)
 	c.Issuing = (*IssuingService)(&c.common)
+	c.Misc = (*MiscService)(&c.common)
 
 	if c.c == nil {
 		c.c = &http.Client{
@@ -85,8 +86,9 @@ func NewClient(secret string) (*Client, error) {
 }
 
 // Call actually does the HTTP request to Mono API
-func (c *Client) Call(method, path string, body, v interface{}) error {
+func (c *Client) Call(method, path string, query string, body, v interface{}) error {
 	var buf io.ReadWriter
+	var u string
 	if body != nil {
 		buf = new(bytes.Buffer)
 		err := json.NewEncoder(buf).Encode(body)
@@ -94,8 +96,14 @@ func (c *Client) Call(method, path string, body, v interface{}) error {
 			return err
 		}
 	}
-	u, _ := c.baseURL.Parse(path)
-	req, err := http.NewRequest(method, u.String(), buf)
+	if len(query) > 1 {
+		u = c.baseURL + path + "?" + query
+	} else {
+		u = c.baseURL + path
+
+	}
+
+	req, err := http.NewRequest(method, u, buf)
 
 	if err != nil {
 		return err
@@ -167,6 +175,11 @@ type BVN struct {
 func (c *Client) View360(bvn *BVN) (interface{}, interface{}) {
 	u := "/360view"
 	resp := &models.View360{}
-	err := c.Call("POST", u, bvn, &resp)
+	err := c.Call("POST", u, "", bvn, &resp)
+	p := &PaymentReq{
+		Start: "",
+		End:   "",
+	}
+	c.Directpay.GetAllPayments(p)
 	return resp, err
 }

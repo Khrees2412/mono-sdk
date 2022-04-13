@@ -32,19 +32,19 @@ type CreditVirtualAcctBody struct {
 func (c *IssuingService) MakeTransferToBank(acctID string, b *BankTransferBody) (interface{}, interface{}) {
 	u := subpath + fmt.Sprintf("/virtualaccounts/%s/transfer", acctID)
 	resp := &models.FundTransfer{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }
 
 func (c *IssuingService) MakeTransferToVirtualAcct(acctID string, b *VirtualAcctTransferBody) (interface{}, interface{}) {
 	u := subpath + fmt.Sprintf("/virtualaccounts/%s/transfer", acctID)
 	resp := &models.FundTransfer{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }
 func (c *IssuingService) CreditVirtualAcct(acctID string, b *CreditVirtualAcctBody) (interface{}, interface{}) {
 	u := subpath + fmt.Sprintf("/virtualaccounts/%s/credit", acctID)
 	resp := Response{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }

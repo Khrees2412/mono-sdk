@@ -20,7 +20,7 @@ func (c *ConnectService) GetAccountId(code string) (interface{}, interface{}) {
 	body := bytes.NewBuffer([]byte(postBody))
 	u := fmt.Sprintf("/account/auth")
 	resp := &AcctId{}
-	err := c.client.Call("POST", u, body, &resp)
+	err := c.client.Call("POST", u, "", body, &resp)
 	return resp, err
 }
 
@@ -28,7 +28,7 @@ func (c *ConnectService) GetAccountId(code string) (interface{}, interface{}) {
 func (c *ConnectService) GetAccountDetails(userID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s", userID)
 	resp := &models.Details{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 
 }
@@ -52,6 +52,6 @@ func (c *ConnectService) GetAccountDetails(userID string) (interface{}, interfac
 func (c *ConnectService) Unlink(userID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/unlink", userID)
 	resp := Response{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }

@@ -10,7 +10,7 @@ import (
 func (c *ConnectService) Sync(userID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/sync", userID)
 	resp := &models.Sync{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }
 
@@ -18,6 +18,6 @@ func (c *ConnectService) Sync(userID string) (interface{}, interface{}) {
 func (c *ConnectService) Reauthorise(userID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/reauthorise", userID)
 	resp := &models.Reauth{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }

@@ -27,7 +27,7 @@ type DirectPayBody struct {
 func (c *DirectpayService) MakeDirectPay(d *DirectPayBody) (interface{}, interface{}) {
 	u := "/v1/payments/initiate"
 	resp := &models.MakePayment{}
-	err := c.client.Call("POST", u, d, &resp)
+	err := c.client.Call("POST", u, "", d, &resp)
 	return resp, err
 
 }
@@ -40,7 +40,7 @@ type Ref struct {
 func (c *DirectpayService) VerifyPayment(reference *Ref) (interface{}, interface{}) {
 	u := "/v1/payments/verify"
 	resp := &models.VerifyPayment{}
-	err := c.client.Call("POST", u, reference, &resp)
+	err := c.client.Call("POST", u, "", reference, &resp)
 	return resp, err
 }
 
@@ -63,6 +63,6 @@ func (c *DirectpayService) GetAllPayments(p *PaymentReq) (interface{}, interface
 		}
 	}
 	resp := &models.GetPayment{}
-	err := c.client.Call("GET", u+query, nil, &resp)
+	err := c.client.Call("GET", u, query, nil, &resp)
 	return resp, err
 }

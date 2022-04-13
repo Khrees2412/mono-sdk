@@ -10,6 +10,6 @@ import (
 func (c *ConnectService) GetIncome(userID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/income", userID)
 	resp := &models.Income{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }

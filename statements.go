@@ -12,7 +12,7 @@ func (c *ConnectService) GetStatementJSON(userID, period string) (interface{}, i
 	//Set output to JSON
 	u := fmt.Sprintf("/accounts/%s/statement", userID)
 	resp := &models.StatementJSON{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }
 
@@ -20,7 +20,7 @@ func (c *ConnectService) GetStatementJSON(userID, period string) (interface{}, i
 func (c *ConnectService) GetStatementPDF(userID, period string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/statement", userID)
 	resp := &models.StatementPDF{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }
 
@@ -28,6 +28,6 @@ func (c *ConnectService) GetStatementPDF(userID, period string) (interface{}, in
 func (c *ConnectService) GetStatementPollStatus(userID, jobID string) (interface{}, interface{}) {
 	u := fmt.Sprintf("/accounts/%s/statement/jobs/%s", userID, jobID)
 	resp := &models.StatementPDF{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }

@@ -14,13 +14,13 @@ type WalletQuery struct {
 func (c *IssuingService) FundWallet() (interface{}, interface{}) {
 	u := subpath + "/wallets/fund"
 	resp := &models.Wallet{}
-	err := c.client.Call("POST", u, nil, &resp)
+	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }
 
 func (c *IssuingService) GetWallet(q *WalletQuery) (interface{}, interface{}) {
 	u := subpath + "/wallets"
 	resp := &models.WalletRes{}
-	err := c.client.Call("GET", u, nil, &resp)
+	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }
