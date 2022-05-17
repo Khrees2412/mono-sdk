@@ -10,21 +10,21 @@ type BudgetReq struct {
 	Amount int
 }
 
-func (c *IssuingService) SetBudget(userID string, r *BudgetReq) (interface{}, interface{}) {
+func (c *IssuingService) SetBudget(userID string, r *BudgetReq) (*models.Budget, error) {
 	u := subpath + fmt.Sprintf("/virtualaccounts/%s/budget/set", userID)
 	resp := &models.Budget{}
 	err := c.client.Call("PATCH", u, "", r, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) RemoveBudget(userID string, r *BudgetReq) (interface{}, interface{}) {
+func (c *IssuingService) RemoveBudget(userID string, r *BudgetReq) (*models.Budget, error) {
 	u := subpath + fmt.Sprintf("/virtualaccounts/%s/budget/remove", userID)
 	resp := &models.Budget{}
 	err := c.client.Call("PATCH", u, "", r, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) GetBudget(userID string) (interface{}, interface{}) {
+func (c *IssuingService) GetBudget(userID string) (*models.Budget, error) {
 	u := subpath + fmt.Sprintf("/virtualaccounts/%s/budget", userID)
 	resp := &models.Budget{}
 	err := c.client.Call("PATCH", u, "", nil, &resp)

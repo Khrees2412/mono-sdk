@@ -7,6 +7,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -111,6 +112,7 @@ func (c *Client) Call(method, path string, query string, body, v interface{}) er
 
 	if body != nil {
 		req.Header.Set("Content-Type", "application/json")
+		// req.Header.Set("mono-secret_key", c.secret)
 	}
 
 	resp, err := c.c.Do(req)
@@ -121,8 +123,6 @@ func (c *Client) Call(method, path string, query string, body, v interface{}) er
 	defer resp.Body.Close()
 	return c.decodeResponse(resp, v)
 }
-
-// u, _ := c.baseURL.Parse(r.path)
 
 func mapstruct(data interface{}, v interface{}) error {
 	config := &mapstructure.DecoderConfig{
@@ -172,14 +172,19 @@ type BVN struct {
 }
 
 /* This resource returns all the financial accounts that are linked to the BVN specified within Mono's Ecosystem. */
-func (c *Client) View360(bvn *BVN) (interface{}, interface{}) {
+func (c *Client) View360(bvn *BVN) (*models.View360, error) {
 	u := "/360view"
 	resp := &models.View360{}
 	err := c.Call("POST", u, "", bvn, &resp)
-	p := &PaymentReq{
-		Start: "",
-		End:   "",
-	}
-	c.Directpay.GetAllPayments(p)
 	return resp, err
+}
+
+func mustGetTestKey() string {
+	key := os.Getenv("MONO_SECRET_KEY")
+
+	if len(key) == 0 {
+		panic("MONO_SECRET_KEY environment variable is not set\n")
+	}
+
+	return key
 }

@@ -7,10 +7,15 @@ import (
 )
 
 func main() {
-	mono, err := mono.NewClient("")
+	mono, err := mono.NewClient("test_sk_l5J0JlLVbRZMsCZzjD6b")
 	if err != nil {
 		fmt.Println(err)
 	}
-	mono.Connect.Unlink("")
+	id, e := mono.Connect.GetAccountId("")
+
+	if e != nil {
+		fmt.Println(e)
+	}
+	fmt.Println(id)
 
 }

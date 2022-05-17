@@ -30,7 +30,7 @@ type AccountHolderReq struct {
 	}
 }
 
-func (c *IssuingService) CreateAccountHolder(p *AccountHolderReq) (interface{}, interface{}) {
+func (c *IssuingService) CreateAccountHolder(p *AccountHolderReq) (*models.AccountHolder, error) {
 	u := subpath + "/accountholders"
 	resp := &models.AccountHolder{}
 	err := c.client.Call("POST", u, "", nil, &resp)
@@ -45,14 +45,14 @@ type SubAccountHolderReq struct {
 	Phone      string
 }
 
-func (c *IssuingService) CreateSubAccountHolder(p *SubAccountHolderReq) (interface{}, interface{}) {
+func (c *IssuingService) CreateSubAccountHolder(p *SubAccountHolderReq) (*models.AccountHolder, error) {
 	u := subpath + "/accountholders"
 	resp := &models.AccountHolder{}
 	err := c.client.Call("POST", u, "", nil, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) DeleteAccountHolder(acctID string, p *SubAccountHolderReq) (interface{}, interface{}) {
+func (c *IssuingService) DeleteAccountHolder(acctID string, p *SubAccountHolderReq) (Response, error) {
 	u := subpath + fmt.Sprintf("/accountholders/%s", acctID)
 	resp := Response{}
 	err := c.client.Call("DELETE", u, "", nil, &resp)
@@ -76,14 +76,14 @@ type UpdateAccountHolderReq struct {
 	Phone      string
 }
 */
-func (c *IssuingService) UpdateAccountHolder(acctID string, p *AccountHolderReq) (interface{}, interface{}) {
+func (c *IssuingService) UpdateAccountHolder(acctID string, p *AccountHolderReq) (*models.UpdateAccountHolder, error) {
 	u := subpath + fmt.Sprintf("/accountholders/%s", acctID)
 	resp := &models.UpdateAccountHolder{}
 	err := c.client.Call("PATCH", u, "", nil, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) FetchAllAccounts() (interface{}, interface{}) {
+func (c *IssuingService) FetchAllAccounts() (*models.Accounts, error) {
 	u := subpath + "/accountholders"
 	resp := &models.Accounts{}
 	err := c.client.Call("GET", u, "", nil, &resp)
@@ -91,7 +91,7 @@ func (c *IssuingService) FetchAllAccounts() (interface{}, interface{}) {
 
 }
 
-func (c *IssuingService) GetAccount(acctID string) (interface{}, interface{}) {
+func (c *IssuingService) GetAccount(acctID string) (*models.Account, error) {
 	u := subpath + fmt.Sprintf("/accountholders/%s", acctID)
 	resp := &models.Account{}
 	err := c.client.Call("GET", u, "", nil, &resp)
@@ -99,7 +99,7 @@ func (c *IssuingService) GetAccount(acctID string) (interface{}, interface{}) {
 
 }
 
-func (c *IssuingService) UploadFile(file *multipart.FileHeader) (interface{}, interface{}) {
+func (c *IssuingService) UploadFile(file *multipart.FileHeader) (Response, error) {
 	u := subpath + "/accountholders/upload"
 	resp := Response{}
 	err := c.client.Call("POST", u, "", file, &resp)
