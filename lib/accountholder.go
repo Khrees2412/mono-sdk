@@ -12,16 +12,16 @@ type IssuingService service
 var subpath = "/issuing/v1"
 
 type AccountHolderReq struct {
-	Entity     string
-	First_name string
-	Last_name  string
-	Bvn        string
-	Phone      string
-	Address    struct {
-		Address_line1 string
-		Lga           string
-		City          string
-		State         string
+	Entity    string
+	FirstName string
+	LastName  string
+	Bvn       string
+	Phone     string
+	Address   struct {
+		AddressLine1 string
+		Lga          string
+		City         string
+		State        string
 	}
 	Identity struct {
 		Type   string

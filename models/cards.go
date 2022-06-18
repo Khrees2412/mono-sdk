@@ -1,172 +1,172 @@
 package models
 
 type RequestCard struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    struct {
-		Link string
-	}
+		Link string `json:"link,omitempty"`
+	} `json:"data"`
 }
 
 type CardDesign struct {
-	Status  string
-	Message string
+	Status  string `json:"status"`
+	Message string `json:"message"`
 	Data    struct {
-		Link string
-		Name string
-	}
+		Link string `json:"link,omitempty"`
+		Name string `json:"name,omitempty"`
+	} `json:"data"`
 }
 
 type CardPersonalization struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    struct {
-		Id string
-	}
+		Id string `json:"id,omitempty"`
+	} `json:"data"`
 }
 
 type CardPersonalizationUpdate struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    struct {
-		Quantity int32
-		Artwork  string
-	}
+		Quantity int32  `json:"quantity,omitempty"`
+		Artwork  string `json:"artwork,omitempty"`
+	} `json:"data"`
 }
 type Personalizations struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    []struct {
-		Id         string
-		Status     string
-		Name       string
-		Quantity   int
-		Artwork    string
-		Created_at string
-		Updated_at string
-	}
+		Id        string `json:"id,omitempty"`
+		Status    string `json:"status,omitempty"`
+		Name      string `json:"name,omitempty"`
+		Quantity  int    `json:"quantity,omitempty"`
+		Artwork   string `json:"artwork,omitempty"`
+		CreatedAt string `json:"created_at,omitempty"`
+		UpdatedAt string `json:"updated_at,omitempty"`
+	} `json:"data,omitempty"`
 	Meta struct {
-		Total    int
-		Pages    int
-		Previous string
-		Next     string
-	}
+		Total    int    `json:"total,omitempty"`
+		Pages    int    `json:"pages,omitempty"`
+		Previous string `json:"previous,omitempty"`
+		Next     string `json:"next,omitempty"`
+	} `json:"meta"`
 }
 type Personalization struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    []struct {
-		Id         string
-		Status     string
-		Name       string
-		Quantity   int
-		Artwork    string
-		Created_at string
-		Updated_at string
-	}
+		Id        string `json:"id,omitempty"`
+		Status    string `json:"status,omitempty"`
+		Name      string `json:"name,omitempty"`
+		Quantity  int    `json:"quantity,omitempty"`
+		Artwork   string `json:"artwork,omitempty"`
+		CreatedAt string `json:"created_at,omitempty"`
+		UpdatedAt string `json:"updated_at,omitempty"`
+	} `json:"data,omitempty"`
 	Meta struct {
-		Total    int
-		Pages    int
-		Previous string
-		Next     string
-	}
+		Total    int    `json:"total,omitempty"`
+		Pages    int    `json:"pages,omitempty"`
+		Previous string `json:"previous,omitempty"`
+		Next     string `json:"next,omitempty"`
+	} `json:"meta"`
 }
 
 type VirtualCardCreate struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    struct {
-		Id string
-	}
+		Id string `json:"id,omitempty"`
+	} `json:"data"`
 }
 
 type Card struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    []struct {
-		Disposable     bool
-		Status         string
-		Type           string
-		Currency       string
-		Brand          string
-		Created_at     string
-		Account_holder string
-		Id             string
-		Name_on_card   string
-		Card_number    string
-		Cvv            string
-		Card_pan       string
-		Last_four      string
-		Expiry_month   string
-		Expiry_year    string
-	}
+		Disposable    bool   `json:"disposable,omitempty"`
+		Status        string `json:"status,omitempty"`
+		Type          string `json:"type,omitempty"`
+		Currency      string `json:"currency,omitempty"`
+		Brand         string `json:"brand,omitempty"`
+		CreatedAt     string `json:"created_at,omitempty"`
+		AccountHolder string `json:"account_holder,omitempty"`
+		Id            string `json:"id,omitempty"`
+		NameOnCard    string `json:"name_on_card,omitempty"`
+		CardNumber    string `json:"card_number,omitempty"`
+		Cvv           string `json:"cvv,omitempty"`
+		CardPan       string `json:"card_pan,omitempty"`
+		LastFour      string `json:"last_four,omitempty"`
+		ExpiryMonth   string `json:"expiry_month,omitempty"`
+		ExpiryYear    string `json:"expiry_year,omitempty"`
+	} `json:"data,omitempty"`
 	Meta struct {
-		Total    int
-		Pages    int
-		Previous string
-		Next     string
-	}
+		Total    int    `json:"total,omitempty"`
+		Pages    int    `json:"pages,omitempty"`
+		Previous string `json:"previous,omitempty"`
+		Next     string `json:"next,omitempty"`
+	} `json:"meta"`
 }
 
 type CardDetails struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    struct {
-		Id              string
-		Disposable      bool
-		Status          string
-		Type            string
-		Currency        string
-		Brand           string
-		Name_on_card    string
-		Card_number     string
-		Cvv             string
-		Card_pan        string
-		Last_four       string
-		Expiry_month    string
-		Expiry_year     string
-		Created_at      string
-		Balance         int
-		Billing_address struct {
-			State       string
-			Country     string
-			Street      string
-			Postal_code string
-		}
-	}
-	Account_holder string
+		Id             string `json:"id,omitempty"`
+		Disposable     bool   `json:"disposable,omitempty"`
+		Status         string `json:"status,omitempty"`
+		Type           string `json:"type,omitempty"`
+		Currency       string `json:"currency,omitempty"`
+		Brand          string `json:"brand,omitempty"`
+		NameOnCard     string `json:"name_on_card,omitempty"`
+		CardNumber     string `json:"card_number,omitempty"`
+		Cvv            string `json:"cvv,omitempty"`
+		CardPan        string `json:"card_pan,omitempty"`
+		LastFour       string `json:"last_four,omitempty"`
+		ExpiryMonth    string `json:"expiry_month,omitempty"`
+		ExpiryYear     string `json:"expiry_year,omitempty"`
+		CreatedAt      string `json:"created_at,omitempty"`
+		Balance        int    `json:"balance,omitempty"`
+		BillingAddress struct {
+			State      string `json:"state,omitempty"`
+			Country    string `json:"country,omitempty"`
+			Street     string `json:"street,omitempty"`
+			PostalCode string `json:"postal_code,omitempty"`
+		} `json:"billing_address"`
+	} `json:"data"`
+	AccountHolder string `json:"account_holder,omitempty"`
 }
 
 type CardTxn struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    []struct {
-		Id        string
-		Currency  string
-		Amount    int
-		Type      string
-		Entry     string
-		Date      string
-		Narration string
+		Id        string `json:"id,omitempty"`
+		Currency  string `json:"currency,omitempty"`
+		Amount    int    `json:"amount,omitempty"`
+		Type      string `json:"type,omitempty"`
+		Entry     string `json:"entry,omitempty"`
+		Date      string `json:"date,omitempty"`
+		Narration string `json:"narration,omitempty"`
 		Business  struct {
-			Id   string
-			Name string
-		}
-	}
+			Id   string `json:"id,omitempty"`
+			Name string `json:"name,omitempty"`
+		} `json:"business"`
+	} `json:"data,omitempty"`
 	Meta struct {
-		Total    int
-		Pages    int
-		Previous string
-		Next     string
-	}
+		Total    int    `json:"total,omitempty"`
+		Pages    int    `json:"pages,omitempty"`
+		Previous string `json:"previous,omitempty"`
+		Next     string `json:"next,omitempty"`
+	} `json:"meta"`
 }
 
 type CardSpendLimit struct {
-	Status  string
-	Message string
+	Status  string `json:"status,omitempty"`
+	Message string `json:"message,omitempty"`
 	Data    []struct {
-		Channel   string
-		Amount    int
-		Frequency int
-	}
+		Channel   string `json:"channel,omitempty"`
+		Amount    int    `json:"amount,omitempty"`
+		Frequency int    `json:"frequency,omitempty"`
+	} `json:"data,omitempty"`
 }

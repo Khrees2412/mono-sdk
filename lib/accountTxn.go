@@ -7,9 +7,9 @@ import (
 )
 
 type TxnQuery struct {
-	account_holder string
-	account        string
-	card           string
+	accountHolder string
+	account       string
+	card          string
 }
 
 func (c *IssuingService) GetAccountTxns(acctID string) (interface{}, interface{}) {
