@@ -7,31 +7,31 @@ import (
 )
 
 type RequestSingleCardBody struct {
-	Account_id string
-	Design_id  string
-	Address    struct {
-		Address_line1 string
-		Lga           string
-		City          string
-		State         string
+	AccountId string
+	DesignId  string
+	Address   struct {
+		AddressLine1 string
+		Lga          string
+		City         string
+		State        string
 	}
 }
 
 type RequestBulkCardBody struct {
 	Account []struct {
-		Account_id string
-		Design_id  string
+		AccountId string
+		DesignId  string
 	}
 	Address struct {
-		Address_line1 string
-		Lga           string
-		City          string
-		State         string
+		AddressLine1 string
+		Lga          string
+		City         string
+		State        string
 	}
 }
 
 /* This resource allows you to request a physical card */
-func (c *IssuingService) RequestSingleCard(b *RequestSingleCardBody) (interface{}, interface{}) {
+func (c *IssuingService) RequestSingleCard(b *RequestSingleCardBody) (*models.RequestCard, error) {
 	u := subpath + "/cards/physical"
 	resp := &models.RequestCard{}
 	err := c.client.Call("POST", u, "", b, &resp)
@@ -39,14 +39,14 @@ func (c *IssuingService) RequestSingleCard(b *RequestSingleCardBody) (interface{
 }
 
 // Not ready
-func (c *IssuingService) RequestBulkCard(b *RequestBulkCardBody) (interface{}, interface{}) {
+func (c *IssuingService) RequestBulkCard(b *RequestBulkCardBody) (Response, error) {
 	u := subpath + "/cards/physical/bulk"
 	resp := Response{}
 	err := c.client.Call("POST", u, "", b, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) GetCardDesign() (interface{}, interface{}) {
+func (c *IssuingService) GetCardDesign() (*models.CardDesign, error) {
 	u := subpath + "/cards/designs"
 	resp := &models.CardDesign{}
 	err := c.client.Call("GET", u, "", nil, &resp)
@@ -59,28 +59,28 @@ type PersonalizationBody struct {
 	Artwork  string
 }
 
-func (c *IssuingService) MakePersonalization(b *PersonalizationBody) (interface{}, interface{}) {
+func (c *IssuingService) MakePersonalization(b *PersonalizationBody) (*models.CardPersonalization, error) {
 	u := subpath + "/cards/personalizations"
 	resp := &models.CardPersonalization{}
 	err := c.client.Call("POST", u, "", b, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) UpdatePersonalization(acctID string, b *PersonalizationBody) (interface{}, interface{}) {
+func (c *IssuingService) UpdatePersonalization(acctID string, b *PersonalizationBody) (*models.CardPersonalizationUpdate, error) {
 	u := subpath + fmt.Sprintf("/cards/personalizations/%s", acctID)
 	resp := &models.CardPersonalizationUpdate{}
 	err := c.client.Call("PATCH", u, "", b, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) GetAllPersonalizations() (interface{}, interface{}) {
+func (c *IssuingService) GetAllPersonalizations() (*models.Personalizations, error) {
 	u := subpath + "/personalizations"
 	resp := &models.Personalizations{}
 	err := c.client.Call("GET", u, "", nil, &resp)
 	return resp, err
 }
 
-func (c *IssuingService) GetPersonalization(id string) (interface{}, interface{}) {
+func (c *IssuingService) GetPersonalization(id string) (*models.Personalization, error) {
 	u := subpath + fmt.Sprintf("/personalizations/%s", id)
 	resp := &models.Personalization{}
 	err := c.client.Call("GET", u, "", nil, &resp)
